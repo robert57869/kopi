@@ -13,7 +13,7 @@ package.domain = org.kopinusantara
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,db
+source.include_exts = py,png,jpg,kv,atlas,db,ttf
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy

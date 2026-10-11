@@ -12,6 +12,22 @@ import database
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
+from kivy.core.text import LabelBase
+
+# Pendaftaran font emoji agar emoji terbaca dan tidak menjadi kotak silang
+base_dir = os.path.dirname(os.path.abspath(__file__))
+font_emoji_path = os.path.join(base_dir, "emoji.ttf")
+if not os.path.exists(font_emoji_path):
+    if os.path.exists(r"C:\Windows\Fonts\seguiemj.ttf"):
+        font_emoji_path = r"C:\Windows\Fonts\seguiemj.ttf"
+    elif os.path.exists("/system/fonts/NotoColorEmoji.ttf"):
+        font_emoji_path = "/system/fonts/NotoColorEmoji.ttf"
+
+if os.path.exists(font_emoji_path):
+    try:
+        LabelBase.register(name="EmojiFont", fn_regular=font_emoji_path)
+    except Exception:
+        pass
 
 # ==============================================================================
 # STATE & DATA APLIKASI
@@ -82,7 +98,7 @@ class LoginScreen(Screen):
     def toggle_password(self):
         pwd_input = self.ids.password_input
         pwd_input.password = not pwd_input.password
-        self.ids.btn_eye_login.text = "Tutup" if not pwd_input.password else "Lihat"
+        self.ids.btn_eye_login.text = "🙈" if not pwd_input.password else "👁"
         self.ids.btn_eye_login.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
 
     def do_login(self):
@@ -118,13 +134,13 @@ class RegisterScreen(Screen):
     def toggle_reg_password(self):
         pwd_input = self.ids.reg_password
         pwd_input.password = not pwd_input.password
-        self.ids.btn_eye_reg1.text = "Tutup" if not pwd_input.password else "Lihat"
+        self.ids.btn_eye_reg1.text = "🙈" if not pwd_input.password else "👁"
         self.ids.btn_eye_reg1.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
 
     def toggle_reg_confirm_password(self):
         pwd_input = self.ids.reg_password_confirm
         pwd_input.password = not pwd_input.password
-        self.ids.btn_eye_reg2.text = "Tutup" if not pwd_input.password else "Lihat"
+        self.ids.btn_eye_reg2.text = "🙈" if not pwd_input.password else "👁"
         self.ids.btn_eye_reg2.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
 
     def do_register(self):
