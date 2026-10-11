@@ -265,14 +265,14 @@ class DetailProdukScreen(Screen):
 
     def reset_tombol_opsi(self):
         self.ids.btn_ukuran_s.text = "S"
-        self.ids.btn_ukuran_m.text = "[b]M [V][/b]"
+        self.ids.btn_ukuran_m.text = "[b]M ✓[/b]"
         self.ids.btn_ukuran_l.text = "L (+4k)"
 
-        self.ids.btn_gula_normal.text = "[b]Normal [V][/b]"
+        self.ids.btn_gula_normal.text = "[b]Normal ✓[/b]"
         self.ids.btn_gula_less.text = "Less 50%"
         self.ids.btn_gula_no.text = "0% Gula"
 
-        self.ids.btn_es_normal.text = "[b]Normal [V][/b]"
+        self.ids.btn_es_normal.text = "[b]Normal ✓[/b]"
         self.ids.btn_es_less.text = "Less Ice"
         self.ids.btn_es_hot.text = "Hangat (Hot)"
 
@@ -281,24 +281,24 @@ class DetailProdukScreen(Screen):
     def set_ukuran(self, uk):
         global ukuran_terpilih
         ukuran_terpilih = uk
-        self.ids.btn_ukuran_s.text = "[b]S [V][/b]" if uk == 'S' else "S"
-        self.ids.btn_ukuran_m.text = "[b]M [V][/b]" if uk == 'M' else "M"
-        self.ids.btn_ukuran_l.text = "[b]L (+4k) [V][/b]" if uk == 'L' else "L (+4k)"
+        self.ids.btn_ukuran_s.text = "[b]S ✓[/b]" if uk == 'S' else "S"
+        self.ids.btn_ukuran_m.text = "[b]M ✓[/b]" if uk == 'M' else "M"
+        self.ids.btn_ukuran_l.text = "[b]L (+4k) ✓[/b]" if uk == 'L' else "L (+4k)"
         self.update_harga_total()
 
     def set_gula(self, gula):
         global gula_terpilih
         gula_terpilih = gula
-        self.ids.btn_gula_normal.text = "[b]Normal [V][/b]" if gula == 'Normal' else "Normal"
-        self.ids.btn_gula_less.text = "[b]Less 50% [V][/b]" if gula == 'Less' else "Less 50%"
-        self.ids.btn_gula_no.text = "[b]0% Gula [V][/b]" if gula == 'No' else "0% Gula"
+        self.ids.btn_gula_normal.text = "[b]Normal ✓[/b]" if gula == 'Normal' else "Normal"
+        self.ids.btn_gula_less.text = "[b]Less 50% ✓[/b]" if gula == 'Less' else "Less 50%"
+        self.ids.btn_gula_no.text = "[b]0% Gula ✓[/b]" if gula == 'No' else "0% Gula"
 
     def set_es(self, es):
         global es_terpilih
         es_terpilih = es
-        self.ids.btn_es_normal.text = "[b]Normal [V][/b]" if es == 'Normal' else "Normal"
-        self.ids.btn_es_less.text = "[b]Less Ice [V][/b]" if es == 'Less' else "Less Ice"
-        self.ids.btn_es_hot.text = "[b]Hangat (Hot) [V][/b]" if es == 'Hot' else "Hangat (Hot)"
+        self.ids.btn_es_normal.text = "[b]Normal ✓[/b]" if es == 'Normal' else "Normal"
+        self.ids.btn_es_less.text = "[b]Less Ice ✓[/b]" if es == 'Less' else "Less Ice"
+        self.ids.btn_es_hot.text = "[b]Hangat (Hot) ✓[/b]" if es == 'Hot' else "Hangat (Hot)"
 
     def ubah_qty(self, delta):
         global jumlah_terpilih
@@ -417,9 +417,9 @@ class PembayaranScreen(Screen):
     def pilih_metode(self, metode):
         global metode_terpilih
         metode_terpilih = metode
-        self.ids.btn_qris.text = "[b]QRIS (BCA, GoPay, OVO) [V][/b]" if metode == "QRIS" else "QRIS (BCA, GoPay, OVO)"
-        self.ids.btn_debit.text = "[b]Kartu Debit / EDC [V][/b]" if metode == "Debit" else "Kartu Debit / EDC"
-        self.ids.btn_tunai.text = "[b]Tunai di Kasir [V][/b]" if metode == "Tunai" else "Tunai di Kasir"
+        self.ids.btn_qris.text = "[b]QRIS (BCA, GoPay, OVO) ✓[/b]" if metode == "QRIS" else "QRIS (BCA, GoPay, OVO)"
+        self.ids.btn_debit.text = "[b]Kartu Debit / EDC ✓[/b]" if metode == "Debit" else "Kartu Debit / EDC"
+        self.ids.btn_tunai.text = "[b]Tunai di Kasir ✓[/b]" if metode == "Tunai" else "Tunai di Kasir"
 
         if metode == "QRIS":
             self.ids.info_metode.text = "Scan QRIS di kasir atau simpan kode QR ini.\nTransaksi akan otomatis terverifikasi."
