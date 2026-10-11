@@ -79,6 +79,11 @@ class WelcomeScreen(Screen):
 
 
 class LoginScreen(Screen):
+    def toggle_password(self):
+        pwd_input = self.ids.password_input
+        pwd_input.password = not pwd_input.password
+        self.ids.btn_eye_login.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
+
     def do_login(self):
         email_or_hp = self.ids.email_input.text.strip()
         pwd = self.ids.password_input.text.strip()
@@ -109,6 +114,16 @@ class LoginScreen(Screen):
 
 
 class RegisterScreen(Screen):
+    def toggle_reg_password(self):
+        pwd_input = self.ids.reg_password
+        pwd_input.password = not pwd_input.password
+        self.ids.btn_eye_reg1.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
+
+    def toggle_reg_confirm_password(self):
+        pwd_input = self.ids.reg_password_confirm
+        pwd_input.password = not pwd_input.password
+        self.ids.btn_eye_reg2.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
+
     def do_register(self):
         nama = self.ids.reg_nama.text.strip()
         email = self.ids.reg_email.text.strip()

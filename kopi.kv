@@ -260,13 +260,33 @@
             size_hint_y: None
             height: '45dp'
 
-        ModernInput:
-            id: password_input
-            hint_text: 'Kata Sandi / PIN'
-            password: True
-            multiline: False
+        BoxLayout:
             size_hint_y: None
             height: '45dp'
+            spacing: 6
+
+            ModernInput:
+                id: password_input
+                hint_text: 'Kata Sandi / PIN'
+                password: True
+                multiline: False
+
+            Button:
+                id: btn_eye_login
+                text: '👁'
+                size_hint_x: None
+                width: '45dp'
+                background_color: 0, 0, 0, 0
+                color: 0.83, 0.61, 0.36, 1
+                font_size: '18sp'
+                canvas.before:
+                    Color:
+                        rgba: 0.22, 0.16, 0.12, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10]
+                on_release: root.toggle_password()
 
         Label:
             id: error_label
@@ -352,21 +372,61 @@
                     size_hint_y: None
                     height: '44dp'
 
-                ModernInput:
-                    id: reg_password
-                    hint_text: 'Buat Kata Sandi (Minimal 4 karakter)'
-                    password: True
-                    multiline: False
+                BoxLayout:
                     size_hint_y: None
                     height: '44dp'
+                    spacing: 6
 
-                ModernInput:
-                    id: reg_password_confirm
-                    hint_text: 'Ulangi Kata Sandi'
-                    password: True
-                    multiline: False
+                    ModernInput:
+                        id: reg_password
+                        hint_text: 'Buat Kata Sandi (Minimal 4 karakter)'
+                        password: True
+                        multiline: False
+
+                    Button:
+                        id: btn_eye_reg1
+                        text: '👁'
+                        size_hint_x: None
+                        width: '44dp'
+                        background_color: 0, 0, 0, 0
+                        color: 0.83, 0.61, 0.36, 1
+                        font_size: '18sp'
+                        canvas.before:
+                            Color:
+                                rgba: 0.22, 0.16, 0.12, 1
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [10]
+                        on_release: root.toggle_reg_password()
+
+                BoxLayout:
                     size_hint_y: None
                     height: '44dp'
+                    spacing: 6
+
+                    ModernInput:
+                        id: reg_password_confirm
+                        hint_text: 'Ulangi Kata Sandi'
+                        password: True
+                        multiline: False
+
+                    Button:
+                        id: btn_eye_reg2
+                        text: '👁'
+                        size_hint_x: None
+                        width: '44dp'
+                        background_color: 0, 0, 0, 0
+                        color: 0.83, 0.61, 0.36, 1
+                        font_size: '18sp'
+                        canvas.before:
+                            Color:
+                                rgba: 0.22, 0.16, 0.12, 1
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [10]
+                        on_release: root.toggle_reg_confirm_password()
 
                 Label:
                     id: reg_error
