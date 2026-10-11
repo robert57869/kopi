@@ -1,0 +1,892 @@
+#:kivy 2.0.0
+
+
+# =========================================================
+# SCREEN MANAGER
+# =========================================================
+
+<MyScreenManager>:
+    SplashScreen:
+    WelcomeScreen:
+    LoginScreen:
+    RegisterScreen:
+    BerandaScreen:
+    LayananScreen:
+    MenuScreen:
+    DetailProdukScreen:
+    KeranjangScreen:
+    KonfirmasiScreen:
+    PembayaranScreen:
+    PesananBerhasilScreen:
+    RiwayatScreen:
+    NotifikasiScreen:
+    AkunScreen:
+
+
+# =========================================================
+# BACKGROUND COKLAT UNTUK SEMUA HALAMAN
+# =========================================================
+
+<Screen>:
+    canvas.before:
+        Color:
+            rgba: 0.35, 0.20, 0.12, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+# =========================================================
+# SPLASH SCREEN
+# =========================================================
+
+<SplashScreen>:
+    name: 'splash'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 15
+
+        Label:
+            text: 'KOPI NUSANTARA'
+            font_size: '28sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+            size_hint_y: None
+            height: '50dp'
+
+        Image:
+            source: app.logo_path
+            size_hint: None, None
+            size: '180dp', '180dp'
+            pos_hint: {'center_x': 0.5}
+            allow_stretch: True
+            keep_ratio: True
+
+        Label:
+            text: 'Nikmati Secangkir Kopi Terbaik Setiap Hari'
+            font_size: '14sp'
+            color: 0.85, 0.75, 0.65, 1
+
+        Button:
+            text: 'Mulai'
+            size_hint_y: None
+            height: '50dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'welcome'
+
+
+# =========================================================
+# WELCOME SCREEN
+# =========================================================
+
+<WelcomeScreen>:
+    name: 'welcome'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 15
+
+        Label:
+            text: 'Selamat Datang!'
+            font_size: '24sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Label:
+            text: 'Masuk untuk melanjutkan pengalaman ngopi terbaik.'
+            font_size: '12sp'
+            color: 0.85, 0.75, 0.65, 1
+
+        Button:
+            text: 'Login'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'login'
+
+        Button:
+            text: 'Daftar Akun'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'register'
+
+
+# =========================================================
+# LOGIN
+# =========================================================
+
+<LoginScreen>:
+    name: 'login'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Halaman Login'
+            font_size: '20sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        TextInput:
+            id: email_input
+            hint_text: 'Email / No. HP'
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+
+        TextInput:
+            id: password_input
+            hint_text: 'Password'
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+
+        Label:
+            id: error_label
+            text: ''
+            color: 1, 0.3, 0.3, 1
+            size_hint_y: None
+            height: '20dp'
+
+        Button:
+            text: 'Masuk'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.do_login()
+
+        Button:
+            text: 'Kembali'
+            size_hint_y: None
+            height: '35dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'welcome'
+
+
+# =========================================================
+# REGISTER
+# =========================================================
+
+<RegisterScreen>:
+    name: 'register'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Daftar Akun'
+            font_size: '20sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        TextInput:
+            id: reg_nama
+            hint_text: 'Nama Lengkap'
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+
+        TextInput:
+            id: reg_email
+            hint_text: 'Email'
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+
+        TextInput:
+            id: reg_hp
+            hint_text: 'No. HP'
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+
+        Label:
+            id: reg_error
+            text: ''
+            color: 1, 0.3, 0.3, 1
+            size_hint_y: None
+            height: '20dp'
+
+        Button:
+            text: 'Daftar & Verifikasi'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.do_register()
+
+        Button:
+            text: 'Batal'
+            size_hint_y: None
+            height: '35dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'welcome'
+
+
+# =========================================================
+# BERANDA
+# =========================================================
+
+<BerandaScreen>:
+    name: 'beranda'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            id: welcome_msg
+            text: 'Kopi Nusantara'
+            font_size: '20sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Label:
+            text: 'PROMO: Diskon 20% untuk Take Away!'
+            color: 1, 0.75, 0.3, 1
+            size_hint_y: None
+            height: '30dp'
+
+        Button:
+            text: 'Pilih Layanan (Pesan Sekarang)'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'layanan'
+
+        Button:
+            text: 'Lihat Keranjang'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.open_keranjang()
+
+        Button:
+            text: 'Riwayat Pesanan'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'notifikasi'
+
+        Button:
+            text: 'Akun Saya'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'akun'
+
+
+# =========================================================
+# LAYANAN
+# =========================================================
+
+<LayananScreen>:
+    name: 'layanan'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 15
+
+        Label:
+            text: 'Pilih Jenis Layanan'
+            font_size: '20sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Button:
+            text: 'Dine In (Makan di tempat)'
+            size_hint_y: None
+            height: '50dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.pilih('Dine In')
+
+        Button:
+            text: 'Take Away (Bawa pulang)'
+            size_hint_y: None
+            height: '50dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.pilih('Take Away')
+
+        Button:
+            text: 'Kembali ke Beranda'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.40, 0.25, 0.15, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'beranda'
+
+
+# =========================================================
+# MENU
+# =========================================================
+
+<MenuScreen>:
+    name: 'menu'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 15
+        spacing: 10
+
+        Label:
+            id: menu_title
+            text: 'Daftar Menu'
+            font_size: '20sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+            size_hint_y: None
+            height: '40dp'
+
+        ScrollView:
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+
+
+                # =================================================
+                # CAPPUCCINO
+                # =================================================
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: '80dp'
+                    padding: 5
+                    spacing: 10
+
+                    canvas.before:
+                        Color:
+                            rgba: 0.25, 0.13, 0.07, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                    Image:
+                        source: '/cappuccino.png'
+                        size_hint_x: None
+                        width: '70dp'
+                        allow_stretch: True
+                        keep_ratio: True
+
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Label:
+                            text: 'Cappuccino'
+                            bold: True
+                            color: 1, 0.9, 0.8, 1
+                            text_size: self.size
+                            halign: 'left'
+                            valign: 'middle'
+
+                        Label:
+                            text: 'Rp 25.000'
+                            color: 1, 0.75, 0.3, 1
+                            text_size: self.size
+                            halign: 'left'
+                            valign: 'middle'
+
+                    Button:
+                        text: 'Pilih'
+                        size_hint_x: None
+                        width: '70dp'
+                        background_color: 0.50, 0.35, 0.23, 1
+                        color: 1, 0.9, 0.8, 1
+                        on_release: root.pilih_menu('Cappuccino', 25000, '/cappuccino.png')
+
+
+                # =================================================
+                # AMERICANO
+                # =================================================
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: '80dp'
+                    padding: 5
+                    spacing: 10
+
+                    canvas.before:
+                        Color:
+                            rgba: 0.25, 0.13, 0.07, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                    Image:
+                        source: '/americano.png'
+                        size_hint_x: None
+                        width: '70dp'
+                        allow_stretch: True
+                        keep_ratio: True
+
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Label:
+                            text: 'Americano'
+                            bold: True
+                            color: 1, 0.9, 0.8, 1
+                            text_size: self.size
+                            halign: 'left'
+                            valign: 'middle'
+
+                        Label:
+                            text: 'Rp 20.000'
+                            color: 1, 0.75, 0.3, 1
+                            text_size: self.size
+                            halign: 'left'
+                            valign: 'middle'
+
+                    Button:
+                        text: 'Pilih'
+                        size_hint_x: None
+                        width: '70dp'
+                        background_color: 0.50, 0.35, 0.23, 1
+                        color: 1, 0.9, 0.8, 1
+                        on_release: root.pilih_menu('Americano', 20000, '/americano.png')
+
+
+                # =================================================
+                # KOPI SUSU GULA AREN
+                # =================================================
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: '80dp'
+                    padding: 5
+                    spacing: 10
+
+                    canvas.before:
+                        Color:
+                            rgba: 0.25, 0.13, 0.07, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                    Image:
+                        source: '/kopiaren.png'
+                        size_hint_x: None
+                        width: '70dp'
+                        allow_stretch: True
+                        keep_ratio: True
+
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Label:
+                            text: 'Kopi Susu Gula Aren'
+                            bold: True
+                            color: 1, 0.9, 0.8, 1
+                            text_size: self.size
+                            halign: 'left'
+                            valign: 'middle'
+
+                        Label:
+                            text: 'Rp 23.000'
+                            color: 1, 0.75, 0.3, 1
+                            text_size: self.size
+                            halign: 'left'
+                            valign: 'middle'
+
+                    Button:
+                        text: 'Pilih'
+                        size_hint_x: None
+                        width: '70dp'
+                        background_color: 0.50, 0.35, 0.23, 1
+                        color: 1, 0.9, 0.8, 1
+                        on_release: root.pilih_menu('Kopi Susu Gula Aren', 23000, '/kopiaren.png')
+
+
+        Button:
+            text: 'Kembali'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.40, 0.25, 0.15, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'layanan'
+
+
+# =========================================================
+# DETAIL PRODUK
+# =========================================================
+
+<DetailProdukScreen>:
+    name: 'detail'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Image:
+            id: detail_image
+            source: ''
+            size_hint_y: None
+            height: '180dp'
+            allow_stretch: True
+            keep_ratio: True
+
+        Label:
+            id: detail_title
+            text: 'Detail Produk'
+            font_size: '18sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Label:
+            text: 'Pilih Ukuran:'
+            size_hint_y: None
+            height: '20dp'
+            color: 1, 0.9, 0.8, 1
+
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: 5
+
+            Button:
+                text: 'S'
+                background_color: 0.50, 0.35, 0.23, 1
+                color: 1, 0.9, 0.8, 1
+                on_release: root.set_ukuran('S')
+
+            Button:
+                text: 'M'
+                background_color: 0.50, 0.35, 0.23, 1
+                color: 1, 0.9, 0.8, 1
+                on_release: root.set_ukuran('M')
+
+            Button:
+                text: 'L (+4k)'
+                background_color: 0.50, 0.35, 0.23, 1
+                color: 1, 0.9, 0.8, 1
+                on_release: root.set_ukuran('L')
+
+        Label:
+            id: info_pilihan
+            text: 'Ukuran terpilih: M'
+            size_hint_y: None
+            height: '30dp'
+            color: 1, 0.9, 0.8, 1
+
+        Button:
+            text: 'Tambah ke Keranjang'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.tambah_ke_keranjang()
+
+        Button:
+            text: 'Batal'
+            size_hint_y: None
+            height: '35dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'menu'
+
+
+# =========================================================
+# KERANJANG
+# =========================================================
+
+<KeranjangScreen>:
+    name: 'keranjang'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Keranjang Belanja'
+            font_size: '20sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Label:
+            id: isi_keranjang
+            text: 'Keranjang kosong'
+            color: 0.9, 0.8, 0.7, 1
+
+        Button:
+            text: 'Lanjut ke Konfirmasi'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.lanjut_konfirmasi()
+
+        Button:
+            text: 'Kosongkan Keranjang'
+            size_hint_y: None
+            height: '35dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.kosongkan()
+
+        Button:
+            text: 'Kembali'
+            size_hint_y: None
+            height: '35dp'
+            background_color: 0.40, 0.25, 0.15, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'beranda'
+
+
+# =========================================================
+# KONFIRMASI
+# =========================================================
+
+<KonfirmasiScreen>:
+    name: 'konfirmasi'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Konfirmasi Pesanan'
+            font_size: '18sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        TextInput:
+            id: input_meja
+            hint_text: 'Nomor Meja'
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+
+        TextInput:
+            id: input_catatan
+            hint_text: 'Catatan (opsional)'
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+
+        Label:
+            id: ringkasan_text
+            text: ''
+            color: 1, 0.9, 0.8, 1
+
+        Button:
+            text: 'Lanjut Pembayaran'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.lanjut_pembayaran()
+
+        Button:
+            text: 'Batal'
+            size_hint_y: None
+            height: '35dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'keranjang'
+
+
+# =========================================================
+# PEMBAYARAN
+# =========================================================
+
+<PembayaranScreen>:
+    name: 'pembayaran'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Pilih Metode Pembayaran'
+            font_size: '18sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Button:
+            text: 'QRIS'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.bayar()
+
+        Button:
+            text: 'Debit'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.bayar()
+
+        Button:
+            text: 'Tunai'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.50, 0.35, 0.23, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.bayar()
+
+
+# =========================================================
+# PESANAN BERHASIL
+# =========================================================
+
+<PesananBerhasilScreen>:
+    name: 'berhasil'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 15
+
+        Label:
+            text: 'PESANAN BERHASIL!'
+            font_size: '22sp'
+            bold: True
+            color: 0.6, 1, 0.6, 1
+
+        Label:
+            text: 'Terima kasih sudah memesan!\nNomor Pesanan: #A021\nEstimasi: 10 - 15 Menit'
+            color: 1, 0.9, 0.8, 1
+
+        Button:
+            text: 'Kembali ke Beranda'
+            size_hint_y: None
+            height: '45dp'
+            background_color: 0.25, 0.13, 0.07, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'beranda'
+
+
+# =========================================================
+# RIWAYAT
+# =========================================================
+
+<RiwayatScreen>:
+    name: 'riwayat'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Riwayat Pesanan'
+            font_size: '20sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Label:
+            id: riwayat_text
+            text: 'Belum ada riwayat pesanan'
+            color: 0.9, 0.8, 0.7, 1
+            size_hint_y: None
+            text_size: self.width, None
+            height: self.texture_size[1]
+
+        Button:
+            text: 'Kembali'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.40, 0.25, 0.15, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'beranda'
+
+
+# =========================================================
+# NOTIFIKASI
+# =========================================================
+
+<NotifikasiScreen>:
+    name: 'notifikasi'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Notifikasi'
+            font_size: '18sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Label:
+            text: '- Pesanan #A021 siap di meja 5\n- Promo Diskon 20% Take Away'
+            color: 0.9, 0.8, 0.7, 1
+
+        Button:
+            text: 'Kembali'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.40, 0.25, 0.15, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'beranda'
+
+
+# =========================================================
+# AKUN
+# =========================================================
+
+<AkunScreen>:
+    name: 'akun'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            id: akun_info
+            text: 'Akun Saya'
+            font_size: '18sp'
+            bold: True
+            color: 1, 0.9, 0.8, 1
+
+        Button:
+            text: 'Logout'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.55, 0.18, 0.12, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'welcome'
+
+        Button:
+            text: 'Kembali'
+            size_hint_y: None
+            height: '40dp'
+            background_color: 0.40, 0.25, 0.15, 1
+            color: 1, 0.9, 0.8, 1
+            on_release: root.manager.current = 'beranda'
