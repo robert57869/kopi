@@ -122,7 +122,7 @@
             size_hint_y: 0.2
 
         PrimaryBtn:
-            text: 'Mulai Pesan Kopi ☕'
+            text: 'Mulai Pesan Kopi'
             size_hint_y: None
             height: '50dp'
             on_release:
@@ -149,7 +149,7 @@
             spacing: 6
 
             Label:
-                text: 'Selamat Datang! ☕'
+                text: 'Selamat Datang!'
                 font_size: '24sp'
                 bold: True
                 color: 0.98, 0.95, 0.90, 1
@@ -179,8 +179,8 @@
                     radius: [14]
 
             Label:
-                text: '🔥 Promo Hari Ini'
-                font_size: '16sp'
+                text: '[ PROMO HARI INI ]'
+                font_size: '15sp'
                 bold: True
                 color: 0.83, 0.61, 0.36, 1
                 halign: 'left'
@@ -212,7 +212,7 @@
                 root.manager.current = 'register'
 
         OutlineBtn:
-            text: 'Lanjut sebagai Tamu (Guest) ➜'
+            text: 'Lanjut sebagai Tamu (Guest) >>'
             size_hint_y: None
             height: '44dp'
             on_release: root.lanjut_sebagai_tamu()
@@ -273,12 +273,13 @@
 
             Button:
                 id: btn_eye_login
-                text: '👁'
+                text: 'Lihat'
                 size_hint_x: None
-                width: '45dp'
+                width: '65dp'
                 background_color: 0, 0, 0, 0
                 color: 0.83, 0.61, 0.36, 1
-                font_size: '18sp'
+                font_size: '12sp'
+                bold: True
                 canvas.before:
                     Color:
                         rgba: 0.22, 0.16, 0.12, 1
@@ -385,12 +386,13 @@
 
                     Button:
                         id: btn_eye_reg1
-                        text: '👁'
+                        text: 'Lihat'
                         size_hint_x: None
-                        width: '44dp'
+                        width: '65dp'
                         background_color: 0, 0, 0, 0
                         color: 0.83, 0.61, 0.36, 1
-                        font_size: '18sp'
+                        font_size: '12sp'
+                        bold: True
                         canvas.before:
                             Color:
                                 rgba: 0.22, 0.16, 0.12, 1
@@ -413,12 +415,13 @@
 
                     Button:
                         id: btn_eye_reg2
-                        text: '👁'
+                        text: 'Lihat'
                         size_hint_x: None
-                        width: '44dp'
+                        width: '65dp'
                         background_color: 0, 0, 0, 0
                         color: 0.83, 0.61, 0.36, 1
-                        font_size: '18sp'
+                        font_size: '12sp'
+                        bold: True
                         canvas.before:
                             Color:
                                 rgba: 0.22, 0.16, 0.12, 1
@@ -473,7 +476,7 @@
                 orientation: 'vertical'
                 Label:
                     id: welcome_msg
-                    text: 'Hai, Reyna 👋'
+                    text: 'Hai, Pelanggan'
                     font_size: '18sp'
                     bold: True
                     color: 0.98, 0.95, 0.90, 1
@@ -482,7 +485,7 @@
 
                 Label:
                     id: points_info
-                    text: '⭐ 120 Poin | 7/10 Stamp'
+                    text: 'Poin: 120 | Stamp: 7/10'
                     font_size: '12sp'
                     color: 0.83, 0.61, 0.36, 1
                     halign: 'left'
@@ -490,13 +493,13 @@
 
             Button:
                 id: cart_badge
-                text: '🛒 (0)'
+                text: 'Keranjang (0)'
                 size_hint: None, None
-                size: '110dp', '38dp'
+                size: '115dp', '38dp'
                 background_color: 0, 0, 0, 0
                 color: 0.12, 0.08, 0.05, 1
                 bold: True
-                font_size: '13sp'
+                font_size: '12sp'
                 canvas.before:
                     Color:
                         rgba: 0.83, 0.61, 0.36, 1
@@ -522,7 +525,7 @@
                     radius: [12]
 
             Label:
-                text: '🎉 SPESIAL TAKE AWAY: DISKON 20%'
+                text: '[ SPESIAL TAKE AWAY: DISKON 20% ]'
                 bold: True
                 font_size: '13sp'
                 color: 0.83, 0.61, 0.36, 1
@@ -538,7 +541,7 @@
 
         # Tombol Pesan Utama
         PrimaryBtn:
-            text: '☕ Pesan Kopi Sekarang'
+            text: 'Pesan Kopi Sekarang'
             size_hint_y: None
             height: '48dp'
             on_release: root.ke_layanan()
@@ -592,7 +595,7 @@
                             halign: 'left'
                             text_size: self.size
                         Label:
-                            text: 'Rp 23.000 • Signature Best Seller'
+                            text: 'Rp 23.000 - Signature Best Seller'
                             font_size: '12sp'
                             color: 0.83, 0.61, 0.36, 1
                             halign: 'left'
@@ -645,7 +648,7 @@
                             halign: 'left'
                             text_size: self.size
                         Label:
-                            text: 'Rp 25.000 • Busa Susu Lembut'
+                            text: 'Rp 25.000 - Busa Susu Lembut'
                             font_size: '12sp'
                             color: 0.83, 0.61, 0.36, 1
                             halign: 'left'
@@ -675,20 +678,20 @@
             spacing: 8
 
             SecondaryBtn:
-                text: '📜 Riwayat'
+                text: 'Riwayat'
                 on_release:
                     root.manager.transition.direction = 'left'
                     root.manager.get_screen('riwayat').setup_view()
                     root.manager.current = 'riwayat'
 
             SecondaryBtn:
-                text: '🔔 Promo'
+                text: 'Promo'
                 on_release:
                     root.manager.transition.direction = 'left'
                     root.manager.current = 'notifikasi'
 
             SecondaryBtn:
-                text: '👤 Akun'
+                text: 'Akun'
                 on_release:
                     root.manager.transition.direction = 'left'
                     root.manager.current = 'akun'
@@ -746,10 +749,12 @@
                 spacing: 15
 
                 Label:
-                    text: '🍽️'
-                    font_size: '30sp'
+                    text: '[MEJA]'
+                    bold: True
+                    font_size: '14sp'
+                    color: 0.83, 0.61, 0.36, 1
                     size_hint_x: None
-                    width: '45dp'
+                    width: '60dp'
 
                 BoxLayout:
                     orientation: 'vertical'
@@ -788,15 +793,17 @@
                 spacing: 15
 
                 Label:
-                    text: '🛍️'
-                    font_size: '30sp'
+                    text: '[-20%]'
+                    bold: True
+                    font_size: '14sp'
+                    color: 0.83, 0.61, 0.36, 1
                     size_hint_x: None
-                    width: '45dp'
+                    width: '60dp'
 
                 BoxLayout:
                     orientation: 'vertical'
                     Label:
-                        text: 'Take Away (Diskon 20% 🎉)'
+                        text: 'Take Away (Diskon 20%)'
                         font_size: '16sp'
                         bold: True
                         color: 0.83, 0.61, 0.36, 1
@@ -848,7 +855,7 @@
         # Promo Tag
         Label:
             id: promo_badge
-            text: '☕ Racikan Kopi Nusantara Terbaik'
+            text: 'Racikan Kopi Nusantara Terbaik'
             font_size: '12sp'
             color: 0.83, 0.61, 0.36, 1
             size_hint_y: None
@@ -1056,14 +1063,14 @@
             spacing: 10
 
             SecondaryBtn:
-                text: '⬅ Ubah Layanan'
+                text: '< Ubah Layanan'
                 size_hint_x: 0.4
                 on_release:
                     root.manager.transition.direction = 'right'
                     root.manager.current = 'layanan'
 
             PrimaryBtn:
-                text: '🛒 Lihat Keranjang'
+                text: 'Lihat Keranjang'
                 size_hint_x: 0.6
                 on_release:
                     root.manager.transition.direction = 'left'
@@ -1152,7 +1159,7 @@
                     Button:
                         id: btn_ukuran_m
                         markup: True
-                        text: '[b]M ✓[/b]'
+                        text: '[b]M [V][/b]'
                         background_color: 0, 0, 0, 0
                         color: 0.95, 0.90, 0.85, 1
                         canvas.before:
@@ -1197,7 +1204,7 @@
                     Button:
                         id: btn_gula_normal
                         markup: True
-                        text: '[b]Normal ✓[/b]'
+                        text: '[b]Normal [V][/b]'
                         background_color: 0, 0, 0, 0
                         color: 0.95, 0.90, 0.85, 1
                         canvas.before:
@@ -1257,7 +1264,7 @@
                     Button:
                         id: btn_es_normal
                         markup: True
-                        text: '[b]Normal ✓[/b]'
+                        text: '[b]Normal [V][/b]'
                         background_color: 0, 0, 0, 0
                         color: 0.95, 0.90, 0.85, 1
                         canvas.before:
@@ -1315,10 +1322,11 @@
                         text_size: self.size
 
                     Button:
-                        text: '−'
+                        text: '-'
                         size_hint: None, None
                         size: '36dp', '36dp'
-                        font_size: '20sp'
+                        font_size: '18sp'
+                        bold: True
                         background_color: 0, 0, 0, 0
                         color: 0.83, 0.61, 0.36, 1
                         canvas.before:
@@ -1343,7 +1351,8 @@
                         text: '+'
                         size_hint: None, None
                         size: '36dp', '36dp'
-                        font_size: '20sp'
+                        font_size: '18sp'
+                        bold: True
                         background_color: 0, 0, 0, 0
                         color: 0.83, 0.61, 0.36, 1
                         canvas.before:
@@ -1358,7 +1367,7 @@
         # Action Buttons
         PrimaryBtn:
             id: detail_price_btn
-            text: 'Tambah ke Keranjang • Rp 25.000'
+            text: 'Tambah ke Keranjang - Rp 25.000'
             size_hint_y: None
             height: '48dp'
             on_release: root.tambah_ke_keranjang()
@@ -1445,7 +1454,7 @@
         # Action Buttons
         PrimaryBtn:
             id: btn_checkout
-            text: 'Lanjut ke Konfirmasi ➜'
+            text: 'Lanjut ke Konfirmasi >>'
             size_hint_y: None
             height: '48dp'
             on_release: root.lanjut_konfirmasi()
@@ -1456,11 +1465,11 @@
             spacing: 8
 
             OutlineBtn:
-                text: '− Hapus Terakhir'
+                text: '- Hapus Terakhir'
                 on_release: root.hapus_item_terakhir()
 
             OutlineBtn:
-                text: '🗑️ Kosongkan'
+                text: 'Kosongkan'
                 on_release: root.kosongkan()
 
         SecondaryBtn:
@@ -1542,7 +1551,7 @@
         Widget:
 
         PrimaryBtn:
-            text: 'Lanjut Pembayaran 💳'
+            text: 'Lanjut Pembayaran >>'
             size_hint_y: None
             height: '48dp'
             on_release: root.lanjut_pembayaran()
@@ -1599,7 +1608,7 @@
         Button:
             id: btn_qris
             markup: True
-            text: '[b]QRIS (BCA, GoPay, OVO) ✓[/b]'
+            text: '[b]QRIS (BCA, GoPay, OVO) [V][/b]'
             size_hint_y: None
             height: '44dp'
             background_color: 0, 0, 0, 0
@@ -1699,10 +1708,12 @@
         spacing: 12
 
         Label:
-            text: '☕'
-            font_size: '42sp'
+            text: '[ SUKSES ]'
+            font_size: '20sp'
+            bold: True
+            color: 0.52, 0.82, 0.60, 1
             size_hint_y: None
-            height: '50dp'
+            height: '35dp'
 
         Label:
             text: 'PESANAN BERHASIL DIBUAT!'
@@ -1746,7 +1757,7 @@
                 text_size: self.size
 
         Label:
-            text: 'Status: Sedang Diproses Barista 🧑‍🍳\nEstimasi penyajian: 8 - 12 menit'
+            text: 'Status: Sedang Diproses Barista\nEstimasi penyajian: 8 - 12 menit'
             font_size: '12sp'
             color: 0.76, 0.71, 0.63, 1
             halign: 'center'
@@ -1861,7 +1872,7 @@
                     radius: [12]
 
             Label:
-                text: '🎁 Diskon 20% Take Away Aktif'
+                text: '[PROMO] Diskon 20% Take Away Aktif'
                 font_size: '14sp'
                 bold: True
                 color: 0.83, 0.61, 0.36, 1
@@ -1891,7 +1902,7 @@
                     radius: [12]
 
             Label:
-                text: '⭐ Kopi Gratis Member Loyalty'
+                text: '[MEMBER] Kopi Gratis Loyalty'
                 font_size: '14sp'
                 bold: True
                 color: 0.52, 0.82, 0.60, 1
@@ -1987,7 +1998,7 @@
         Widget:
 
         OutlineBtn:
-            text: '🚪 Keluar Akun (Logout)'
+            text: 'Keluar Akun (Logout)'
             size_hint_y: None
             height: '45dp'
             on_release: root.do_logout()

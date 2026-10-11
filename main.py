@@ -82,6 +82,7 @@ class LoginScreen(Screen):
     def toggle_password(self):
         pwd_input = self.ids.password_input
         pwd_input.password = not pwd_input.password
+        self.ids.btn_eye_login.text = "Tutup" if not pwd_input.password else "Lihat"
         self.ids.btn_eye_login.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
 
     def do_login(self):
@@ -117,11 +118,13 @@ class RegisterScreen(Screen):
     def toggle_reg_password(self):
         pwd_input = self.ids.reg_password
         pwd_input.password = not pwd_input.password
+        self.ids.btn_eye_reg1.text = "Tutup" if not pwd_input.password else "Lihat"
         self.ids.btn_eye_reg1.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
 
     def toggle_reg_confirm_password(self):
         pwd_input = self.ids.reg_password_confirm
         pwd_input.password = not pwd_input.password
+        self.ids.btn_eye_reg2.text = "Tutup" if not pwd_input.password else "Lihat"
         self.ids.btn_eye_reg2.color = (1, 0.75, 0.3, 1) if not pwd_input.password else (0.83, 0.61, 0.36, 1)
 
     def do_register(self):
@@ -179,10 +182,10 @@ class BerandaScreen(Screen):
         self.setup_view()
 
     def setup_view(self):
-        self.ids.welcome_msg.text = f"Hai, {user_session['nama']} 👋"
-        self.ids.points_info.text = f"⭐ {user_session['poin']} Poin | {user_session['stamp']}/10 Stamp"
+        self.ids.welcome_msg.text = f"Hai, {user_session['nama']}"
+        self.ids.points_info.text = f"Poin: {user_session['poin']} | Stamp: {user_session['stamp']}/10"
         total_items = sum(item["jumlah"] for item in keranjang_global)
-        self.ids.cart_badge.text = f"🛒 Keranjang ({total_items})"
+        self.ids.cart_badge.text = f"Keranjang ({total_items})"
 
     def ke_layanan(self):
         self.manager.transition.direction = 'left'
@@ -214,9 +217,9 @@ class MenuScreen(Screen):
     def setup_menu(self, jenis="Dine In"):
         self.ids.menu_title.text = f"Menu Kopi ({jenis})"
         if jenis == "Take Away":
-            self.ids.promo_badge.text = "🎉 Promo Aktif: Diskon 20% untuk semua menu Take Away!"
+            self.ids.promo_badge.text = "[Promo] Diskon 20% untuk semua menu Take Away!"
         else:
-            self.ids.promo_badge.text = "☕ Nikmati racikan kopi barista fresh di tempat"
+            self.ids.promo_badge.text = "Nikmati racikan kopi barista fresh di tempat"
 
     def pilih_menu(self, nama, harga, path_gambar=""):
         self.manager.get_screen('detail').setup_item(nama, harga, path_gambar)
@@ -246,14 +249,14 @@ class DetailProdukScreen(Screen):
 
     def reset_tombol_opsi(self):
         self.ids.btn_ukuran_s.text = "S"
-        self.ids.btn_ukuran_m.text = "[b]M ✓[/b]"
+        self.ids.btn_ukuran_m.text = "[b]M [V][/b]"
         self.ids.btn_ukuran_l.text = "L (+4k)"
 
-        self.ids.btn_gula_normal.text = "[b]Normal ✓[/b]"
+        self.ids.btn_gula_normal.text = "[b]Normal [V][/b]"
         self.ids.btn_gula_less.text = "Less 50%"
         self.ids.btn_gula_no.text = "0% Gula"
 
-        self.ids.btn_es_normal.text = "[b]Normal ✓[/b]"
+        self.ids.btn_es_normal.text = "[b]Normal [V][/b]"
         self.ids.btn_es_less.text = "Less Ice"
         self.ids.btn_es_hot.text = "Hangat (Hot)"
 
@@ -262,24 +265,24 @@ class DetailProdukScreen(Screen):
     def set_ukuran(self, uk):
         global ukuran_terpilih
         ukuran_terpilih = uk
-        self.ids.btn_ukuran_s.text = "[b]S ✓[/b]" if uk == 'S' else "S"
-        self.ids.btn_ukuran_m.text = "[b]M ✓[/b]" if uk == 'M' else "M"
-        self.ids.btn_ukuran_l.text = "[b]L (+4k) ✓[/b]" if uk == 'L' else "L (+4k)"
+        self.ids.btn_ukuran_s.text = "[b]S [V][/b]" if uk == 'S' else "S"
+        self.ids.btn_ukuran_m.text = "[b]M [V][/b]" if uk == 'M' else "M"
+        self.ids.btn_ukuran_l.text = "[b]L (+4k) [V][/b]" if uk == 'L' else "L (+4k)"
         self.update_harga_total()
 
     def set_gula(self, gula):
         global gula_terpilih
         gula_terpilih = gula
-        self.ids.btn_gula_normal.text = "[b]Normal ✓[/b]" if gula == 'Normal' else "Normal"
-        self.ids.btn_gula_less.text = "[b]Less 50% ✓[/b]" if gula == 'Less' else "Less 50%"
-        self.ids.btn_gula_no.text = "[b]0% Gula ✓[/b]" if gula == 'No' else "0% Gula"
+        self.ids.btn_gula_normal.text = "[b]Normal [V][/b]" if gula == 'Normal' else "Normal"
+        self.ids.btn_gula_less.text = "[b]Less 50% [V][/b]" if gula == 'Less' else "Less 50%"
+        self.ids.btn_gula_no.text = "[b]0% Gula [V][/b]" if gula == 'No' else "0% Gula"
 
     def set_es(self, es):
         global es_terpilih
         es_terpilih = es
-        self.ids.btn_es_normal.text = "[b]Normal ✓[/b]" if es == 'Normal' else "Normal"
-        self.ids.btn_es_less.text = "[b]Less Ice ✓[/b]" if es == 'Less' else "Less Ice"
-        self.ids.btn_es_hot.text = "[b]Hangat (Hot) ✓[/b]" if es == 'Hot' else "Hangat (Hot)"
+        self.ids.btn_es_normal.text = "[b]Normal [V][/b]" if es == 'Normal' else "Normal"
+        self.ids.btn_es_less.text = "[b]Less Ice [V][/b]" if es == 'Less' else "Less Ice"
+        self.ids.btn_es_hot.text = "[b]Hangat (Hot) [V][/b]" if es == 'Hot' else "Hangat (Hot)"
 
     def ubah_qty(self, delta):
         global jumlah_terpilih
@@ -291,7 +294,7 @@ class DetailProdukScreen(Screen):
         biaya_ukuran = 4000 if ukuran_terpilih == 'L' else 0
         harga_satuan = item_terpilih.get("harga_dasar", 20000) + biaya_ukuran
         total = harga_satuan * jumlah_terpilih
-        self.ids.detail_price_btn.text = f"Tambah ke Keranjang • Rp {total:,}"
+        self.ids.detail_price_btn.text = f"Tambah ke Keranjang - Rp {total:,}"
 
     def tambah_ke_keranjang(self):
         biaya_ukuran = 4000 if ukuran_terpilih == 'L' else 0
@@ -320,7 +323,7 @@ class DetailProdukScreen(Screen):
 class KeranjangScreen(Screen):
     def update_view(self):
         if not keranjang_global:
-            self.ids.isi_keranjang.text = "Keranjang pesanan masih kosong.\nYuk pilih menu kopi favoritmu sekarang! ☕"
+            self.ids.isi_keranjang.text = "Keranjang pesanan masih kosong.\nYuk pilih menu kopi favoritmu sekarang!"
             self.ids.ringkasan_biaya.text = ""
             self.ids.btn_checkout.disabled = True
             return
@@ -331,7 +334,7 @@ class KeranjangScreen(Screen):
         for idx, item in enumerate(keranjang_global, 1):
             teks += (
                 f"[b]{idx}. {item['nama']}[/b] ({item['ukuran']}) x{item['jumlah']}\n"
-                f"   [size=12sp]• {item['gula']} | {item['es']}[/size]\n"
+                f"   [size=12sp]- {item['gula']} | {item['es']}[/size]\n"
                 f"   [color=d49b5b]Subtotal: Rp {item['subtotal']:,}[/color]\n\n"
             )
 
@@ -398,9 +401,9 @@ class PembayaranScreen(Screen):
     def pilih_metode(self, metode):
         global metode_terpilih
         metode_terpilih = metode
-        self.ids.btn_qris.text = "[b]QRIS (BCA, GoPay, OVO) ✓[/b]" if metode == "QRIS" else "QRIS (BCA, GoPay, OVO)"
-        self.ids.btn_debit.text = "[b]Kartu Debit / EDC ✓[/b]" if metode == "Debit" else "Kartu Debit / EDC"
-        self.ids.btn_tunai.text = "[b]Tunai di Kasir ✓[/b]" if metode == "Tunai" else "Tunai di Kasir"
+        self.ids.btn_qris.text = "[b]QRIS (BCA, GoPay, OVO) [V][/b]" if metode == "QRIS" else "QRIS (BCA, GoPay, OVO)"
+        self.ids.btn_debit.text = "[b]Kartu Debit / EDC [V][/b]" if metode == "Debit" else "Kartu Debit / EDC"
+        self.ids.btn_tunai.text = "[b]Tunai di Kasir [V][/b]" if metode == "Tunai" else "Tunai di Kasir"
 
         if metode == "QRIS":
             self.ids.info_metode.text = "Scan QRIS di kasir atau simpan kode QR ini.\nTransaksi akan otomatis terverifikasi."
@@ -486,7 +489,7 @@ class RiwayatScreen(Screen):
         data = database.ambil_riwayat(user_session["nama"])
 
         if not data:
-            self.ids.riwayat_text.text = "Belum ada riwayat transaksi pesanan.\nYuk pesan kopi sekarang dan kumpulkan poinmu! ☕"
+            self.ids.riwayat_text.text = "Belum ada riwayat transaksi pesanan.\nYuk pesan kopi sekarang dan kumpulkan poinmu!"
             return
 
         teks = ""
@@ -503,9 +506,9 @@ class RiwayatScreen(Screen):
             metode = item[8] or "QRIS"
 
             teks += (
-                f"[b]#{kode} • {layanan}[/b] ({meja})\n"
+                f"[b]#{kode} - {layanan}[/b] ({meja})\n"
                 f"{tgl} | [color=88d49e]{metode}[/color]\n"
-                f"• {nama} ({ukuran}) x{jumlah} = [b]Rp {subtotal:,}[/b]\n"
+                f"- {nama} ({ukuran}) x{jumlah} = [b]Rp {subtotal:,}[/b]\n"
                 f"----------------------------------------\n\n"
             )
 
@@ -523,7 +526,7 @@ class AkunScreen(Screen):
             f"[color=c2b69d]{user_session['email']} | {user_session['no_hp']}[/color]"
         )
         self.ids.loyalty_info.text = (
-            f"☕ [b]Gold Member Rewards[/b]\n"
+            f"[b]Gold Member Rewards[/b]\n"
             f"Poin Terkumpul: [b]{user_session['poin']} Poin[/b]\n"
             f"Stamp Card: [b]{user_session['stamp']}/10 Stamp[/b]\n"
             f"(Kumpulkan 3 stamp lagi untuk 1 Cup Kopi Gratis!)"
@@ -540,9 +543,9 @@ class AkunScreen(Screen):
         self.manager.current = 'welcome'
 
 
-# ==============================================================================
+# =========================================================
 # MAIN APP ENTRY
-# ==============================================================================
+# =========================================================
 
 class KopiNusantaraApp(App):
     def build(self):
