@@ -17,9 +17,16 @@ def buat_database():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nama TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
-            no_hp TEXT
+            no_hp TEXT,
+            password TEXT DEFAULT '123456'
         )
     """)
+
+    # Migrasi kolom password jika tabel lama belum memiliki password
+    try:
+        cursor.execute("ALTER TABLE pengguna ADD COLUMN password TEXT DEFAULT '123456'")
+    except Exception:
+        pass
 
     # Tabel menu
     cursor.execute("""
@@ -53,8 +60,8 @@ def buat_database():
         )
     """)
 
-    # Migrasi kolom bila tabel pesanan lama sudah ada
-    kolom_baru = [
+    # Migrasi kolom pesanan
+    kolom_pesanan = [
         ("kode_pesanan", "TEXT DEFAULT 'KP-1001'"),
         ("gula", "TEXT DEFAULT 'Normal Sugar'"),
         ("es", "TEXT DEFAULT 'Normal Ice'"),
@@ -62,7 +69,7 @@ def buat_database():
         ("catatan", "TEXT DEFAULT '-'"),
         ("metode_bayar", "TEXT DEFAULT 'QRIS'")
     ]
-    for nama_kolom, tipe_kolom in kolom_baru:
+    for nama_kolom, tipe_kolom in kolom_pesanan:
         try:
             cursor.execute(f"ALTER TABLE pesanan ADD COLUMN {nama_kolom} {tipe_kolom}")
         except Exception:
@@ -78,6 +85,14 @@ def buat_database():
             cursor.execute(f"ALTER TABLE menu ADD COLUMN {nama_kolom} {tipe_kolom}")
         except Exception:
             pass
+
+    # Akun demo awal jika belum ada data pengguna sama sekali
+    cursor.execute("SELECT COUNT(*) FROM pengguna")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute("""
+            INSERT INTO pengguna (nama, email, no_hp, password)
+            VALUES (?, ?, ?, ?)
+        """, ("Reyna A. Putri", "reyna@gmail.com", "081234567890", "123456"))
 
     conn.commit()
     conn.close()
@@ -114,17 +129,46 @@ def ambil_semua_menu():
     return data
 
 
-def simpan_pengguna(nama, email, no_hp):
+def simpan_pengguna(nama, email, no_hp, password):
     conn = koneksi()
     cursor = conn.cursor()
 
     cursor.execute("""
-        INSERT OR REPLACE INTO pengguna (nama, email, no_hp)
-        VALUES (?, ?, ?)
-    """, (nama, email, no_hp))
+        INSERT INTO pengguna (nama, email, no_hp, password)
+        VALUES (?, ?, ?, ?)
+    """, (nama.strip(), email.strip().lower(), no_hp.strip(), password.strip()))
 
     conn.commit()
     conn.close()
+
+
+def cek_login(identifier, password):
+    conn = koneksi()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, nama, email, no_hp
+        FROM pengguna
+        WHERE (LOWER(email) = LOWER(?) OR no_hp = ?) AND password = ?
+    """, (identifier.strip(), identifier.strip(), password.strip()))
+
+    data = cursor.fetchone()
+    conn.close()
+    return data
+
+
+def cek_terdaftar(email, no_hp):
+    conn = koneksi()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id FROM pengguna
+        WHERE LOWER(email) = LOWER(?) OR no_hp = ?
+    """, (email.strip(), no_hp.strip()))
+
+    ada = cursor.fetchone()
+    conn.close()
+    return ada is not None
 
 
 def simpan_pesanan(kode_pesanan, nama_pelanggan, layanan, nama_menu,

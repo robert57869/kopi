@@ -215,10 +215,7 @@
             text: 'Lanjut sebagai Tamu (Guest) ➜'
             size_hint_y: None
             height: '44dp'
-            on_release:
-                root.manager.transition.direction = 'left'
-                root.manager.get_screen('beranda').setup_view()
-                root.manager.current = 'beranda'
+            on_release: root.lanjut_sebagai_tamu()
 
 
 # =========================================================
@@ -305,7 +302,7 @@
 
     BoxLayout:
         orientation: 'vertical'
-        padding: [25, 30, 25, 20]
+        padding: [25, 25, 25, 18]
         spacing: 10
 
         Label:
@@ -314,67 +311,84 @@
             bold: True
             color: 0.98, 0.95, 0.90, 1
             size_hint_y: None
-            height: '35dp'
+            height: '32dp'
             halign: 'left'
             text_size: self.size
 
         Label:
-            text: 'Daftar untuk menikmati loyalty rewards & stamp gratis'
-            font_size: '13sp'
+            text: 'Daftar untuk mengumpulkan stamp & promo loyalitas'
+            font_size: '12sp'
             color: 0.76, 0.71, 0.63, 1
             size_hint_y: None
-            height: '20dp'
+            height: '18dp'
             halign: 'left'
             text_size: self.size
 
-        Widget:
-            size_hint_y: None
-            height: '10dp'
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
 
-        ModernInput:
-            id: reg_nama
-            hint_text: 'Nama Lengkap'
-            multiline: False
-            size_hint_y: None
-            height: '45dp'
+                ModernInput:
+                    id: reg_nama
+                    hint_text: 'Nama Lengkap'
+                    multiline: False
+                    size_hint_y: None
+                    height: '44dp'
 
-        ModernInput:
-            id: reg_email
-            hint_text: 'Alamat Email (misal: user@gmail.com)'
-            multiline: False
-            size_hint_y: None
-            height: '45dp'
+                ModernInput:
+                    id: reg_email
+                    hint_text: 'Alamat Email (contoh: user@gmail.com)'
+                    multiline: False
+                    size_hint_y: None
+                    height: '44dp'
 
-        ModernInput:
-            id: reg_hp
-            hint_text: 'Nomor WhatsApp (diawali 08...)'
-            multiline: False
-            size_hint_y: None
-            height: '45dp'
+                ModernInput:
+                    id: reg_hp
+                    hint_text: 'Nomor WhatsApp / HP (diawali 08...)'
+                    multiline: False
+                    size_hint_y: None
+                    height: '44dp'
 
-        Label:
-            id: reg_error
-            text: ''
-            color: 1, 0.4, 0.4, 1
-            font_size: '12sp'
-            size_hint_y: None
-            height: '25dp'
+                ModernInput:
+                    id: reg_password
+                    hint_text: 'Buat Kata Sandi (Minimal 4 karakter)'
+                    password: True
+                    multiline: False
+                    size_hint_y: None
+                    height: '44dp'
 
-        Widget:
+                ModernInput:
+                    id: reg_password_confirm
+                    hint_text: 'Ulangi Kata Sandi'
+                    password: True
+                    multiline: False
+                    size_hint_y: None
+                    height: '44dp'
+
+                Label:
+                    id: reg_error
+                    text: ''
+                    color: 1, 0.4, 0.4, 1
+                    font_size: '12sp'
+                    size_hint_y: None
+                    height: '24dp'
 
         PrimaryBtn:
-            text: 'Daftar & Masuk'
+            text: 'Daftar Akun Sekarang'
             size_hint_y: None
             height: '48dp'
             on_release: root.do_register()
 
         SecondaryBtn:
-            text: 'Batal'
+            text: 'Sudah Punya Akun? Masuk'
             size_hint_y: None
-            height: '44dp'
+            height: '42dp'
             on_release:
                 root.manager.transition.direction = 'right'
-                root.manager.current = 'welcome'
+                root.manager.current = 'login'
 
 
 # =========================================================

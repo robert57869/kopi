@@ -18,12 +18,12 @@ from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 # ==============================================================================
 
 user_session = {
-    "is_logged_in": True,
-    "nama": "Reyna A. Putri",
-    "email": "reyna@gmail.com",
-    "no_hp": "081234567890",
-    "poin": 120,
-    "stamp": 7
+    "is_logged_in": False,
+    "nama": "Pelanggan",
+    "email": "",
+    "no_hp": "",
+    "poin": 0,
+    "stamp": 0
 }
 
 keranjang_global = []
@@ -66,7 +66,16 @@ class SplashScreen(Screen):
 
 
 class WelcomeScreen(Screen):
-    pass
+    def lanjut_sebagai_tamu(self):
+        user_session["is_logged_in"] = False
+        user_session["nama"] = "Tamu (Guest)"
+        user_session["email"] = "guest@kopinusantara.com"
+        user_session["no_hp"] = "-"
+        user_session["poin"] = 0
+        user_session["stamp"] = 0
+        self.manager.transition.direction = 'left'
+        self.manager.get_screen('beranda').setup_view()
+        self.manager.current = 'beranda'
 
 
 class LoginScreen(Screen):
@@ -78,24 +87,25 @@ class LoginScreen(Screen):
             self.ids.error_label.text = "Email/No HP dan Password wajib diisi!"
             return
 
-        if email_or_hp.isdigit():
-            if not validasi_no_hp(email_or_hp):
-                self.ids.error_label.text = "Nomor HP tidak valid (diawali 08, 10-13 digit)."
-                return
-            user_session["no_hp"] = email_or_hp
-            user_session["nama"] = "Pelanggan Setia"
-        else:
-            if not validasi_email(email_or_hp):
-                self.ids.error_label.text = "Format email tidak valid!"
-                return
-            user_session["email"] = email_or_hp
-            user_session["nama"] = email_or_hp.split("@")[0].capitalize()
+        # Cek autentikasi ke database SQLite
+        user = database.cek_login(email_or_hp, pwd)
 
-        user_session["is_logged_in"] = True
-        self.ids.error_label.text = ""
-        self.manager.transition.direction = 'left'
-        self.manager.get_screen('beranda').setup_view()
-        self.manager.current = 'beranda'
+        if user:
+            # user: (id, nama, email, no_hp)
+            user_session["is_logged_in"] = True
+            user_session["nama"] = user[1]
+            user_session["email"] = user[2]
+            user_session["no_hp"] = user[3]
+            user_session["poin"] = 50
+            user_session["stamp"] = 1
+
+            self.ids.error_label.text = ""
+            self.ids.password_input.text = ""
+            self.manager.transition.direction = 'left'
+            self.manager.get_screen('beranda').setup_view()
+            self.manager.current = 'beranda'
+        else:
+            self.ids.error_label.text = "Email/No. HP atau Password salah!"
 
 
 class RegisterScreen(Screen):
@@ -103,26 +113,47 @@ class RegisterScreen(Screen):
         nama = self.ids.reg_nama.text.strip()
         email = self.ids.reg_email.text.strip()
         hp = self.ids.reg_hp.text.strip()
+        pwd = self.ids.reg_password.text.strip()
+        pwd_confirm = self.ids.reg_password_confirm.text.strip()
 
         if not nama:
             self.ids.reg_error.text = "Nama lengkap tidak boleh kosong!"
             return
 
         if not validasi_email(email):
-            self.ids.reg_error.text = "Format email tidak valid!"
+            self.ids.reg_error.text = "Format email tidak valid (contoh: user@gmail.com)!"
             return
 
         if not validasi_no_hp(hp):
             self.ids.reg_error.text = "No. HP harus diawali 08 (10-13 angka)!"
             return
 
+        if len(pwd) < 4:
+            self.ids.reg_error.text = "Password minimal 4 karakter!"
+            return
+
+        if pwd != pwd_confirm:
+            self.ids.reg_error.text = "Konfirmasi password tidak cocok!"
+            return
+
+        if database.cek_terdaftar(email, hp):
+            self.ids.reg_error.text = "Email atau No. HP sudah terdaftar! Silakan login."
+            return
+
+        # Simpan ke database dengan password
+        database.simpan_pengguna(nama, email, hp, pwd)
+
+        # Set session sesuai data pengguna yang baru didaftarkan
+        user_session["is_logged_in"] = True
         user_session["nama"] = nama
         user_session["email"] = email
         user_session["no_hp"] = hp
-        user_session["is_logged_in"] = True
+        user_session["poin"] = 50  # Bonus pendaftaran member baru
+        user_session["stamp"] = 1
 
-        database.simpan_pengguna(nama, email, hp)
         self.ids.reg_error.text = ""
+        self.ids.reg_password.text = ""
+        self.ids.reg_password_confirm.text = ""
         self.manager.transition.direction = 'left'
         self.manager.get_screen('beranda').setup_view()
         self.manager.current = 'beranda'
@@ -485,6 +516,11 @@ class AkunScreen(Screen):
 
     def do_logout(self):
         user_session["is_logged_in"] = False
+        user_session["nama"] = "Pelanggan"
+        user_session["email"] = ""
+        user_session["no_hp"] = ""
+        user_session["poin"] = 0
+        user_session["stamp"] = 0
         self.manager.transition.direction = 'right'
         self.manager.current = 'welcome'
 
