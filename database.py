@@ -58,10 +58,9 @@ def isi_menu_awal():
 
     if jumlah == 0:
         menu = [
-            ("Cappuccino", 25000, "foto/cappuccino.png"),
-            ("Caffe Latte", 25000, "foto/latte.png"),
-            ("Americano", 20000, "foto/americano.png"),
-            ("Kopi Susu Gula Aren", 23000, "foto/kopi_susu.png")
+            ("Cappuccino", 25000, "cappuccino.png"),
+            ("Americano", 20000, "americano.png"),
+            ("Kopi Susu Gula Aren", 23000, "kopiaren.png")
         ]
 
         cursor.executemany("""
