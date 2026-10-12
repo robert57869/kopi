@@ -3,13 +3,18 @@ import re
 import random
 import datetime
 
-# Posisi jendela tepat di TENGAH layar monitor laptop/PC (tidak menempel di pojokan)
-os.environ['SDL_VIDEO_CENTERED'] = '1'
+from kivy.utils import platform
+
+# Posisi jendela tepat di TENGAH layar monitor laptop/PC (hanya jika di Desktop)
+if platform not in ('android', 'ios'):
+    os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 from kivy.core.window import Window
 
-# Set ukuran tampilan mobile yang pas dan proporsional di PC/Laptop
-Window.size = (430, 700)
+# Set ukuran tampilan mobile hanya di PC/Laptop, biarkan fullscreen otomatis di Android
+if platform not in ('android', 'ios'):
+    Window.size = (430, 700)
+
 Window.set_title("Kopi Nusantara")
 
 import database
